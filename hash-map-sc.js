@@ -35,25 +35,20 @@ class List {
     return null;
   }
 
-  // remove(key){
-  //   this.first = this.removeHelper(key, this.first);
-  // }
+  remove(key){
+    this.first = this.removeHelper(key, this.first);
+  }
 
-  remove(key, node = this.first){
+  removeHelper(key, node){
     if(!node){
-      console.log('key invalid');
       return null;
     } 
-    
-    if(node === this.first && node.key === key){
-      this.first = this.first.next;
-    }
-    
+
     if(node.key === key){
       console.log(node.key);
       return node.next;
     } else {
-      node.next = this.remove(key, node.next);
+      node.next = this.removeHelper(key, node.next);
       return node;
     }
   }
