@@ -45,7 +45,6 @@ class List {
     } 
 
     if(node.key === key){
-      console.log(node.key);
       return node.next;
     } else {
       node.next = this.removeHelper(key, node.next);
@@ -121,7 +120,6 @@ if(require.main === module){
   
   lor.print();
   console.log(`Value of key Maiar is`, lor.get('Maiar'));
-  console.log();
   ['Ent', 'Hobbit', 'Wizard', 'Human', 'Fish'].forEach(key => lor.remove(key));
   console.log('\nAfter deletions:');
   lor.print();
