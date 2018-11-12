@@ -97,6 +97,7 @@ if(require.main === module){
   lorChars.forEach(char => {
     Object.keys(char).forEach(key => lor.put(key, char[key]));
   })
+  
   lor.print();
   console.log(`Value of key Maiar is`, lor.get('Maiar'));
   ['Ent', 'Hobbit', 'Wizard', 'Human', 'Fish'].forEach(key => lor.remove(key));
