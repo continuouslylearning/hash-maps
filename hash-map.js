@@ -62,6 +62,18 @@ class HashMap {
     return slot.value;
 
   }
+  
+  remove(key){
+    const index = this.findSlot(key);
+    const slot = this.slots[index];
+    if(!slot || slot.deleted){
+      console.log(`\n${key} in not a valid key`);
+      return;
+    }
+    slot.deleted = true;
+    this.length--;
+  }
+
   print(){
     this.slots.forEach(slot => {
       if(!slot || slot.deleted) return;
@@ -87,4 +99,7 @@ if(require.main === module){
   })
   lor.print();
   console.log(`Value of key Maiar is`, lor.get('Maiar'));
+  ['Ent', 'Hobbit', 'Wizard', 'Human', 'Fish'].forEach(key => lor.remove(key));
+  console.log('\nAfter deletions:');
+  lor.print();
 }
