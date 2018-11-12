@@ -42,15 +42,26 @@ class HashMap {
   }
 
   put(key, value){
-    if((this.length + 1)/this.capacity > HashMap.LOAD_RATIO) resizeBy(this.capacity * HashMap.SIZE_RATIO);
-    const index = findSlot(key);
+    if(((this.length + 1)/this.capacity) > HashMap.LOAD_RATIO) this.resize(this.capacity * HashMap.SIZE_RATIO);
+    const index = this.findSlot(key);
     this.slots[index] = {
       key,
       value, 
       deleted: false
     };
+    this.length++;
   }
 
+  get(key){
+    const index = this.findSlot(key);
+    const slot = this.slots[index];
+    if(!slot){
+      console.log(`${key} in not a valid key`);
+      return;
+    }
+    return slot.value;
+
+  }
   print(){
     this.slots.forEach(slot => {
       if(!slot || slot.deleted) return;
@@ -62,3 +73,18 @@ class HashMap {
 
 HashMap.LOAD_RATIO = .90;
 HashMap.SIZE_RATIO = 3;
+
+if(require.main === module){
+  const lor = new HashMap();
+  const lorChars = [
+    {Hobbit:"Bilbo"}, {Hobbit:"Frodo"}, {Wizard:"Gandolf"}, 
+    {Human:"Aragon"}, {Elf: "Legolas"}, {Maiar:"The Necromancer"}, {Maiar: "Sauron"}, 
+    {RingBearer: "Gollum"}, {LadyOfLight: "Galadriel"}, {HalfElven: "Arwen"}, {Ent: "Treebeard"}
+  ];
+
+  lorChars.forEach(char => {
+    Object.keys(char).forEach(key => lor.put(key, char[key]));
+  })
+  lor.print();
+  console.log(`Value of key Maiar is`, lor.get('Maiar'));
+}
